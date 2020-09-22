@@ -9,6 +9,14 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
+  "build": {
+    "builder": "@angular-devkit/build-angular:browser",
+    "options": {
+      "allowedCommonJsDependencies": [
+        "lodash"
+      ]
+    }
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^10.1.2",
