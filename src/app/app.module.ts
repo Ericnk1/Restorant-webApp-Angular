@@ -30,6 +30,7 @@ import {AppRoutingModule} from './app-routing/app-routing.module';
 import {PromotionService} from './services/promotion.service';
 import {LeaderService} from './services/leader.service';
 import { LoginComponent } from './login/login.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -61,6 +62,7 @@ import { LoginComponent } from './login/login.component';
         MatFormFieldModule,
         MatInputModule,
         MatCheckboxModule,
+        MatProgressSpinnerModule,
         MatSelectModule,
         MatSlideToggleModule,
         ReactiveFormsModule
