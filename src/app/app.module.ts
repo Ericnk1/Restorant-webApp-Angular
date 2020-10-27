@@ -4,13 +4,21 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import 'hammerjs';
-import { MenuComponent } from './menu/menu.component';
 import {MatListModule} from '@angular/material/list';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MenuComponent } from './menu/menu.component';
+import 'hammerjs';
+
 import { DishdetailComponent } from './dishdetail/dishdetail.component';
 import {DishService} from './services/dish.service';
 import { HeaderComponent } from './header/header.component';
@@ -22,11 +30,9 @@ import {AppRoutingModule} from './app-routing/app-routing.module';
 import {PromotionService} from './services/promotion.service';
 import {LeaderService} from './services/leader.service';
 import { LoginComponent } from './login/login.component';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {FormsModule} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
+
+
+
 
 @NgModule({
   declarations: [
@@ -45,6 +51,7 @@ import {MatInputModule} from '@angular/material/input';
         BrowserModule,
         BrowserAnimationsModule,
         FlexLayoutModule,
+        FormsModule,
         MatToolbarModule,
         MatListModule,
         MatGridListModule,
@@ -54,7 +61,9 @@ import {MatInputModule} from '@angular/material/input';
         MatFormFieldModule,
         MatInputModule,
         MatCheckboxModule,
-        FormsModule
+        MatSelectModule,
+        MatSlideToggleModule,
+        ReactiveFormsModule
     ],
   providers: [
     DishService,
