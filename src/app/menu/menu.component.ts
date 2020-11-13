@@ -9,6 +9,7 @@ import {DishService} from '../services/dish.service';
 })
 export class MenuComponent implements OnInit {
 
+  errMess: string;
   dishes: Dish[];
 
   // selectedDish: Dish; // Same as selectedDish: Dish = DISHES[0];
@@ -18,7 +19,9 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     // this.dishService.getDishes().then((dishes) => this.dishes = dishes);
-    this.dishService.getDishes().subscribe(dishes => this.dishes = dishes);
+    this.dishService.getDishes()
+      .subscribe(dishes => this.dishes = dishes,
+        errmess => this.errMess = <any> errmess);
   }
   /*onSelect(dish: Dish): void {
     this.selectedDish = dish;
