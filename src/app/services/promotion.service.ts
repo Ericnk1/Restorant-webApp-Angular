@@ -1,57 +1,41 @@
 import { Injectable } from '@angular/core';
 import {Promotion} from '../shared/promotion';
-import {PROMOTIONS} from '../shared/promotions';
 import {Observable, of} from 'rxjs';
-import {delay} from 'rxjs/operators';
+import {catchError, delay, map} from 'rxjs/operators';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {ProcessHTTPMsgService} from './process-httpmsg.service';
+import {baseURL} from '../shared/baseurl';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PromotionService {
 
-  constructor() { }
-
-/*  getPromotions(): Promise<Promotion[]> {
-    return Promise.resolve(PROMOTIONS);
-  }
-
-  getPromotion(id: string): Promise<Promotion> {
-    return Promise.resolve(PROMOTIONS.filter((promo) => (promo.id === id))[0]);
-  }
-
-  getFeaturedPromotion(): Promise<Promotion> {
-    return Promise.resolve(PROMOTIONS.filter((promotion) => promotion.featured)[0]);
-  }*/
-/*  getPromotions(): Promise<Promotion[]> {
-    return new Promise(resolve => {
-      // Simulate server latency with 2 second delay
-      setTimeout(() => resolve(PROMOTIONS), 2000);
-    });
-  }
-
-  getPromotion(id: string): Promise<Promotion> {
-    return new Promise(resolve => {
-      // Simulate server latency with 2 second delay
-      setTimeout(() => resolve(PROMOTIONS.filter((promo) => (promo.id === id))[0]), 2000);
-    });
-  }
-
-  getFeaturedPromotion(): Promise<Promotion> {
-    return  new Promise(resolve => {
-      // Simulate server latency with 2 second delay
-      setTimeout(() => resolve(PROMOTIONS.filter((promotion) => promotion.featured)[0]), 2000);
-    });
-  }*/
+  constructor(private http: HttpClient, private processHTTPMsgService: ProcessHTTPMsgService) { }
 
   getPromotions(): Observable<Promotion[]> {
-    return of(PROMOTIONS).pipe(delay(2000));
+    return this.http.get<Promotion[]>(baseURL + 'promotions')
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
   getPromotion(id: string): Observable<Promotion> {
-    return of(PROMOTIONS.filter((dish) => (dish.id === id))[0]).pipe(delay(2000));
+    return this.http.get<Promotion>(baseURL + 'promotions/' + id)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
   getFeaturedPromotion(): Observable<Promotion> {
-    return of(PROMOTIONS.filter((dish) => dish.featured)[0]).pipe(delay(2000));
+    return this.http.get<Promotion[]>(baseURL + 'promotions?featured=true').pipe(map(dishes => dishes[0]))
+      .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
+  putPromotion(promotion: Promotion): Observable<Promotion> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    return this.http.put<Promotion>(baseURL + 'promotions/' + promotion.id, promotion, httpOptions)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
+
   }
 }
