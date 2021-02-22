@@ -9,7 +9,7 @@ import {routes} from './routes';
   declarations: [],
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })
   ],
   exports: [ RouterModule ],
 })
